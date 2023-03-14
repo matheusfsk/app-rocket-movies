@@ -17,7 +17,6 @@ export const Container = styled.div`
     display: flex;
     grid-area: content;
     overflow-y: auto;
-    padding-left: 138px;
   }
   .tags {
     display: flex;

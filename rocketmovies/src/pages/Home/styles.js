@@ -10,6 +10,11 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
+  > div {
+    width: 100%;
+    padding: 0 123px;
+  }
+
   > main {
     justify-content: center;
     width: 100%;
@@ -21,23 +26,17 @@ export const Container = styled.div`
     overflow-y: auto;
     margin-right: 180px;
 
-    padding-left: 218px;
-
     margin-bottom: 56px;
   }
 `;
 
 export const DivHeader = styled.div`
-  width: 100%;
-  padding-left: 15px;
-  padding-left: 138px;
-
-  header {
+  > header {
     margin-top: 50px;
     margin-bottom: 40px;
     display: flex;
     justify-content: space-between;
-    margin-right: 106px;
+
     > h1 {
       font-family: "Roboto Slab";
       font-weight: 400;
@@ -51,39 +50,6 @@ export const DivHeader = styled.div`
     font-size: 16px;
     display: flex;
     border-radius: 8px;
-  }
-`;
-
-export const DivMain = styled.div`
-  margin-bottom: 40px;
-  background: rgba(255, 133, 155, 0.05);
-  border-radius: 16px;
-  padding: 32px;
-  margin-right: 16px;
-  gap: 15px;
-
-  > h2 {
-    margin-bottom: 8px;
-  }
-
-  .stars {
-    margin-bottom: 15px;
-    color: ${({ theme }) => theme.COLORS.PINK};
-
-    > svg {
-      margin-right: 5px;
-    }
-  }
-
-  > p {
-    margin-bottom: 15px;
-  }
-
-  .tags {
-    > span {
-      background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
-      color: ${({ theme }) => theme.COLORS.WHITE_3};
-    }
   }
 `;
 

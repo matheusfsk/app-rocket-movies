@@ -14,7 +14,7 @@ export const Container = styled.div`
 
     padding: 0 124px;
 
-    a {
+    button {
       color: ${({ theme }) => theme.COLORS.PINK};
       font-weight: 400;
       font-size: 16px;

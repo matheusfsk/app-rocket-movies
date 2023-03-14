@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Container = styled.header`
   grid-area: header;
@@ -9,15 +8,30 @@ export const Container = styled.header`
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
-
-  padding: 0 123px;
+  padding: 30px 123px;
   display: flex;
+
   justify-content: space-between;
 
-  .inputContainer {
+  > input {
     width: 630px;
     height: 56px;
     margin: auto;
+
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_1000};
+
+    margin-bottom: 8px;
+    border-radius: 10px;
+
+    padding: 12px;
+
+    color: ${({ theme }) => theme.COLORS.WHITE};
+
+    border: none;
+
+    &::placeholder {
+      color: ${({ theme }) => theme.COLORS.WHITE_2};
+    }
   }
 `;
 
@@ -29,13 +43,13 @@ export const Rocket = styled.div`
   padding: 0 15px;
 `;
 
-export const Profile = styled(Link)`
+export const Profile = styled.div`
   display: flex;
   align-items: center;
 
   padding: 0 15px;
 
-  > img {
+  > a img {
     width: 64px;
     height: 64px;
     border-radius: 50%;
@@ -43,17 +57,19 @@ export const Profile = styled(Link)`
 
   > div {
     display: flex;
+    align-items: flex-end;
     flex-direction: column;
     margin-right: 9px;
     line-height: 24px;
 
-    span {
+    button {
+      background: none;
+      border: none;
       font-size: 14px;
       color: ${({ theme }) => theme.COLORS.GRAY_400};
-      text-align: right;
     }
 
-    strong {
+    a strong {
       font-size: 16px;
       color: ${({ theme }) => theme.COLORS.WHITE};
     }

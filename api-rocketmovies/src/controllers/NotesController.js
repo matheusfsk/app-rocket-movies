@@ -4,57 +4,73 @@ const knex = require("../database/knex");
 
 class NotesController {
   async create(request, response) {
-    const { title, rating, description, tags } = request.body;
-    const user_id = request.user.id;
+    try {
+      const { title, rating, description, tags } = request.body;
+      const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
+      const user_id = request.user.id;
+      const availableTags = [
+        "aventura",
+        "ação",
+        "comedia",
+        "terror",
+        "suspense",
+        "ficção",
+        "romance",
+        "ficção científica",
+      ];
 
-    const note_id = await knex("notes").insert({
-      title,
-      rating,
-      description,
-      user_id,
-    });
+      if (rating < 0 || rating > 5) {
+        throw new AppError(
+          `O numero inserido da sua nota "rating" deve ser entre 0-5`
+        );
+      }
 
-    let tagAlreadyExists = await knex("tags", () => {
-      this.onIn("name", tags);
-    });
-
-    tagAlreadyExists = tagAlreadyExists.map((tag) => tag.name);
-    const onlyNewTags = tags.filter((tag) => !tagAlreadyExists.includes(tag));
-
-    const tagsInsert = tags.map((name) => {
-      return {
-        note_id,
-        name,
-        user_id,
-      };
-    });
-
-    if (tagsInsert.length > 0) {
-      await knex("tags").insert(tagsInsert);
-    }
-
-    if (rating < 1 || rating > 5) {
-      throw new AppError(
-        `O numero inserido da sua nota "rating" deve ser entre 1-5`
+      const isTagsOk = lowerCaseTags.every((tag) =>
+        availableTags.includes(tag.toLowerCase())
       );
+
+      if (!isTagsOk) {
+        throw new AppError("Esse tipo de gênero não existe");
+      }
+
+      let tagAlreadyExists = await knex("tags", () => {
+        this.onIn("name", lowerCaseTags);
+      });
+
+      tagAlreadyExists = tagAlreadyExists.map((tag) => tag.name);
+      const onlyNewTags = lowerCaseTags.filter(
+        (tag) => !tagAlreadyExists.includes(tag)
+      );
+
+      const note_id = await knex("notes").insert({
+        title,
+        rating,
+        description,
+        user_id,
+      });
+
+      const tagsInsert = lowerCaseTags.map((name) => {
+        return {
+          note_id,
+          name,
+          user_id,
+        };
+      });
+
+      if (tagsInsert.length > 0) {
+        await knex("tags").insert(tagsInsert);
+      }
+
+      return response.json();
+    } catch (error) {
+      if (error instanceof AppError) {
+        return response
+          .status(error.statusCode)
+          .json({ message: error.message });
+      }
+      console.error(error);
+      return response.status(500).json({ message: "Ocorreu um erro!" });
     }
-
-    const availableTags = [
-      "aventura",
-      "ação",
-      "comedia",
-      "terror",
-      "suspense",
-      "ficção",
-    ];
-
-    const isTagsOk = tags.every((tag) => availableTags.includes(tag));
-
-    if (!isTagsOk) {
-      throw new AppError("Esse tipo de gênero não existe");
-    }
-
-    return response.json();
   }
 
   async show(request, response) {

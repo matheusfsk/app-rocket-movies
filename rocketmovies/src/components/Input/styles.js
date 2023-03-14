@@ -11,6 +11,14 @@ export const Container = styled.div`
   margin-bottom: 8px;
   border-radius: 10px;
 
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
   > input {
     height: 56px;
     width: 100%;

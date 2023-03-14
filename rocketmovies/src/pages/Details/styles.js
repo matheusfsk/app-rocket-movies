@@ -13,28 +13,33 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 716.54px;
-
+    height: 100vh;
     flex-direction: column;
 
     gap: 24px;
-    overflow-y: auto;
+
     margin-right: 180px;
 
     padding-left: 218px;
 
     padding-bottom: 60px;
+
+    .buttonDeleteMovie {
+      background-color: ${({ theme }) => theme.COLORS.BLACK_100};
+      color: ${({ theme }) => theme.COLORS.PINK};
+      width: 390px;
+    }
   }
 `;
 
 export const DivHeader = styled.div`
   width: 1137px;
   height: 581px;
+  margin-top: 40px;
   overflow-y: auto;
 
   a {
     width: 70px;
-    margin-top: 40px;
     color: ${({ theme }) => theme.COLORS.PINK};
     font-weight: 400;
     font-size: 16px;
